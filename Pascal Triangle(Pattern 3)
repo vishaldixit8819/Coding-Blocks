@@ -1,0 +1,54 @@
+/*
+Take N (number of rows), print the following pattern (for N = 6)
+1
+1 1
+1 2 1
+1 3 3 1
+1 4 6 4 1
+1 5 10 10 5 1
+
+Input Format
+Constraints
+0 < N < 100
+
+Output Format
+Sample Input
+6
+
+Sample Output
+1  
+1	1  
+1	2	1  
+1	3	3	1  
+1	4	6	4	1  
+1	5	10	10	5	1
+
+Explanation
+Each number is separated from other by a tab.
+*/
+
+// Code...
+
+import java.util.*;
+public class Main {
+    public static void main(String args[]) {
+Scanner sc=new Scanner(System.in);   
+         int i, j, k, l, r;            
+          int a[]=new int[30];    
+        
+         r=sc.nextInt();      
+    
+        
+         for(i=0;i<r;i++)   
+		 {
+			
+            a[i] = 1;  
+			for(j=0;j<=i;j++)    
+			{
+				 System.out.print(a[i]+ "\t");    
+                 a[i] = a[i] * (i - j) / (j + 1);   
+			}
+			System.out.println();  
+		 }
+    }
+}
