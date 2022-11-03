@@ -1,0 +1,81 @@
+/*
+Take N (number of rows), print the following pattern (for N = 5).
+
+     * * * * *
+     * *   * *
+     *       *
+     * *   * *
+     * * * * *
+     
+Input Format
+Constraints
+0 < N < 10 (where N is an odd number)
+
+Output Format
+Sample Input
+5
+
+Sample Output
+*	*	*    *  *		  
+*	*	     *  *
+* 	        *
+* 	*    *  *
+* 	*	*  *  *
+
+Explanation
+Each '*' is separated from other by a tab.
+*/
+
+// Code...
+
+import java.util.*;
+public class Main {
+    public static void main(String args[]) {
+        Scanner sc = new Scanner(System.in); 
+		int n = sc.nextInt();   // input of no. of rows
+		int row = 1;
+		int nst = n / 2;
+		int nsp = 1;
+		while (row <= n) {
+			if (row == 1 || row == n) {
+				int cst = 1;
+				while (cst <= n) {
+					System.out.print("*\t");
+					cst++;
+				}
+				row++;
+				System.out.println();
+
+			} else {
+				// stars
+				int cst = 1;
+				while (cst <= nst) {
+					System.out.print("*\t");
+					cst++;
+				}
+				// space
+				int csp = 1;
+				while (csp <= nsp) {
+					System.out.print("\t");
+					csp++;
+				}
+				// stars
+				cst = 1;
+				while (cst <= nst) {
+					System.out.print("*\t");
+					cst++;
+				}
+                //prep for next step
+				if (row <= n / 2) {
+					nst--;
+					nsp += 2;
+				} else {
+					nst++;
+					nsp -= 2;
+				}
+				row++;
+				System.out.println();
+			}
+		}
+    }
+}
