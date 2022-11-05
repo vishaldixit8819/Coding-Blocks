@@ -1,0 +1,78 @@
+/*
+
+Given a string S and a string T, find the minimum window in S which will contain all the characters in T in complexity O(n).
+
+Input Format
+First Line Contains 2 strings of length not more than 10^5
+
+Constraints
+1<=|S|<=10^5
+
+Output Format
+A single Line a containing String
+
+Sample Input
+ADOBECODEBANC ABC
+
+Sample Output
+BANC
+
+*/
+
+//Code..
+
+import java.util.*;
+public class Main {
+      public static boolean containsAllchar(String temp,String s2){
+       HashMap<Character,Integer> map1=new HashMap<>();
+    HashMap<Character,Integer> map2=new HashMap<>();
+      for (int i = 0; i < temp.length(); i++) {
+            char c = temp.charAt(i);
+            map1.put(c, map1.getOrDefault(c, 0) + 1);
+        }
+        
+      for (int i = 0; i < s2.length(); i++) {
+            char c = s2.charAt(i);
+            map2.put(c, map2.getOrDefault(c, 0) + 1);
+        }
+        int f=0;
+        for(char i:map2.keySet()){
+            if(map1.containsKey(i) && map2.containsKey(i)){
+            if(map1.get(i)<map2.get(i)){
+                f=1;
+                break;
+            }
+            }
+            else{
+                return false;
+            }
+        }
+        if(f==1){
+            return false;
+        }
+        return true;
+    }
+    public static void main(String[] args) {
+        Scanner sc=new Scanner(System.in);
+        String s1=sc.next();
+        String s2=sc.next();
+        int s=0;
+        int e=0;
+        String ans="";
+        int minwin=Integer.MAX_VALUE;
+        while(e<s1.length()){
+            String temp=s1.substring(s,e+1);
+            while(containsAllchar(temp,s2)&& (s<=e)){
+                if(minwin>(e-s+1)){
+                    minwin=e-s+1;
+                    ans=temp;
+                }
+                s++;
+                temp=s1.substring(s,e+1);
+            }
+            e++;
+        }
+        System.out.println(ans);
+    }
+
+}
