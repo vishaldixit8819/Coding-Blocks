@@ -1,0 +1,37 @@
+/*
+
+Take N as input. Print Nth Fibonacci Number, given that the first two numbers in the Fibonacci Series are 0 and 1.
+
+Input Format
+Constraints
+0 <= N <= 1000
+
+Output Format
+Sample Input
+10
+
+Sample Output
+55
+
+Explanation
+The 0th fibonnaci is 0 and 1st fibonnaci is 1.
+
+*/
+
+// Code...
+
+import java.util.*;
+public class Main {
+    public static void main(String args[]) {
+		Scanner sc = new Scanner(System.in);
+		int n=sc.nextInt();
+		int n1=0, n2=1, i=1;
+		while(i<=n){
+			int c=n1+n2;
+			n1=n2;
+			n2=c;
+			i++;
+		}
+		System.out.println(n1);
+    }
+}
