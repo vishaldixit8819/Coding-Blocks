@@ -1,0 +1,49 @@
+/*
+
+Take as input S, a string. Write a function that returns the character with maximum frequency. Print the value returned.
+
+Input Format
+String
+
+Constraints
+A string of length between 1 to 1000.
+
+Output Format
+Character
+
+Sample Input
+aaabacb
+
+Sample Output
+a
+
+Explanation
+For the given input string, a appear 4 times. Hence, it is the most frequent character.
+
+*/
+
+// Code..
+
+import java.util.*;
+public class Main {
+    public static void main(String args[]) {
+		Scanner sc = new Scanner(System.in);
+		String str=sc.next();
+		Max_Frequency_character(str);
+    }
+	public static void Max_Frequency_character(String str){
+		int freq[]=new int[26];
+		for(int i=0;i<str.length();i++){
+			char ch=str.charAt(i);
+			freq[ch-97]=freq[ch-97]+1;
+		}
+		int max=0;
+		for(int i=1;i<freq.length;i++){
+			if(freq[i]>freq[max]){
+				max=i;
+			}
+		}
+		char ch=(char)(97+max);
+		System.out.println(ch);
+	}
+}
