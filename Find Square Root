@@ -1,0 +1,54 @@
+/*
+
+Implement squareroot(x).
+
+Compute and return the square root of x.
+
+If x is not a perfect square, return floor(sqrt(x)).
+Note: DO NOT USE SQRT FUNCTION FROM STANDARD LIBRARY
+
+Input Format
+An integer A .
+
+Constraints
+0 <= A <10000000000
+
+Output Format
+Squareroot of A.
+
+Sample Input
+25
+
+Sample Output
+5
+
+*/
+
+// Code...
+
+import java.util.*;
+public class Main {
+    public static long Squareroot(long num) {
+        long low =1;
+        long high =num;
+        long mid;
+        long ans=0;
+        while(low<=high){
+            mid=low+(high-low)/2;
+            if(mid*mid<=num){
+                ans=mid;
+                low=mid+1;                
+            }
+            else{
+                high=mid-1;
+            }
+        }
+        return ans;
+    }
+    public static void main (String args[]) {
+        Scanner sc = new Scanner(System.in);
+        long num=sc.nextLong();
+        System.out.println(Squareroot(num));
+
+    }
+}
