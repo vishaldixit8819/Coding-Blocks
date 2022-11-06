@@ -1,0 +1,95 @@
+/*
+
+Given K painters to paint N boards where each painter takes 1 unit of time to paint 1 unit of boards i.e. if the length of a particular board is 5, it will take 5 units of time to paint the board. Compute the minimum amount of time to paint all the boards.
+
+Note that:
+
+Every painter can paint only contiguous segments of boards.
+A board can only be painted by 1 painter at maximum.
+Input Format
+First line contains K which is the number of painters. Second line contains N which indicates the number of boards. Third line contains N space separated integers representing the length of each board.
+
+Constraints
+1 <= K <= 10
+1 <= N <= 10
+1<= Length of each Board <= 10^8
+
+Output Format
+Output the minimum time required to paint the board.
+
+Sample Input
+2
+2
+1 10
+
+Sample Output
+10
+
+*/
+
+// Code...
+
+import java.util.Scanner;
+
+public class Main {
+
+	public static void main(String[] args) {
+
+		Scanner sc = new Scanner(System.in);
+		int k = sc.nextInt(); // no. of painters
+		int n = sc.nextInt(); // no. of boards
+		int[] boards = new int[n];
+		for (int i = 0; i < boards.length; i++)
+			boards[i] = sc.nextInt();
+		System.out.println(minTime(boards, n, k));
+		sc.close();
+
+	}
+
+	public static int getMax(int arr[], int n) {
+		int max = Integer.MIN_VALUE;
+		for (int i = 0; i < n; i++)
+			if (arr[i] > max)
+				max = arr[i];
+		return max;
+	}
+
+	public static int getSum(int arr[], int n) {
+		int total = 0;
+		for (int i = 0; i < n; i++)
+			total += arr[i];
+		return total;
+	}
+
+	static int numberOfPainters(int arr[], int n, int maxLen) {
+		int total = 0, numPainters = 1;
+
+		for (int i = 0; i < n; i++) {
+			total += arr[i];
+
+			if (total > maxLen) {
+
+				total = arr[i];
+				numPainters++;
+			}
+		}
+
+		return numPainters;
+	}
+
+	public static int minTime(int arr[], int n, int k) {
+		int lo = getMax(arr, n);
+		int hi = getSum(arr, n);
+
+		while (lo < hi) {
+			int mid = lo + (hi - lo) / 2;
+			int requiredPainters = numberOfPainters(arr, n, mid);
+			if (requiredPainters <= k)
+				hi = mid;
+			else
+				lo = mid + 1;
+		}
+		return lo;
+	}
+
+}
