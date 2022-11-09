@@ -1,0 +1,102 @@
+/*
+
+Take as input N, the size of a chess board. We are asked to place N number of queens in it, so that no queen can kill other.
+
+a. Write a recursive function which returns the count of different distinct ways the queens can be placed across the board. Print the value returned.
+
+b. Write a recursive function which prints all valid configurations (void is the return type for function).
+
+Input Format
+Enter the number N(Size of the chessboard)
+
+Constraints
+None
+
+Output Format
+Display the number of possible ways of arranging N queens and print all the possible arrangements in a space separated manner
+
+Sample Input
+4
+
+Sample Output
+{1-2} {2-4} {3-1} {4-3}  {1-3} {2-1} {3-4} {4-2}
+2
+
+*/
+
+// Code..
+
+import java.util.Scanner;
+
+public class Main {
+	static int c=0;
+	public static void main(String[] args) {
+		Scanner sc=new Scanner(System.in);
+		int n=sc.nextInt();
+		boolean[][] board=new boolean[n][n];
+		printpath(board,0,n);
+		System.out.println();
+		System.out.print(c);
+	}
+	public static void printpath(boolean[][] board,int row,int tq){
+		if(tq==0) {
+			display(board);
+			c++;
+			return;
+		}
+		if(row>=board.length) {
+			return;
+		}
+		for(int c=0;c<board.length;c++) {
+			if(isitPossible(board,row,c)==true){
+				board[row][c]=true;
+				printpath(board,row+1,tq-1);
+				board[row][c]=false;
+			}
+		}
+	}
+	public static void display(boolean[][] board) {
+		for(int i=0;i<board.length;i++) {
+			for(int j=0;j<board.length;j++) {
+				if(board[i][j]==true) {
+					System.out.print("{"+(i+1)+"-"+(j+1)+"}");
+				}
+			}
+			System.out.print(" ");
+		}
+		System.out.print(" ");
+	}
+	public  static boolean isitPossible(boolean[][] board, int row, int c) {
+		// row
+		int r=row;
+		while(r>=0) {
+			if(board[r][c]==true) {
+				return false;
+			}
+			r--;
+		}
+		// left diagonal
+		int lr=row;
+		int lc=c;
+		while(lr>=0 && lc>=0) {
+			if(board[lr][lc]==true) {
+				return false;
+			}
+			lr--;
+			lc--;
+		}
+		
+		// right diagonal
+		
+		int rr=row;
+		int rc=c;
+		while(rr>=0 && rc<board.length) {
+			if(board[rr][rc]==true) {
+				return false;
+			}
+			rr--;
+			rc++;
+		}
+		return true;
+	}
+}
