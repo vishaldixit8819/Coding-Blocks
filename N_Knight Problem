@@ -1,0 +1,88 @@
+/*
+
+Take as input N, the size of a chess board. We are asked to place N number of Knights in it, so that no knight can kill other.
+
+a. Write a recursive function which returns the count of different distinct ways the knights can be placed across the board. Print the value returned.
+
+b.Write a recursive function which prints all valid configurations (void is the return type for function).
+
+Input Format
+Enter the size of the chessboard N
+
+Constraints
+None
+
+Output Format
+Display the number of ways a knight can be placed and print all the possible arrangements in a space separated manner
+
+Sample Input
+2
+Sample Output
+{0-0} {0-1}  {0-0} {1-0}  {0-0} {1-1}  {0-1} {1-0}  {0-1} {1-1}  {1-0} {1-1} 
+6
+
+*/
+
+// Code..
+
+import java.util.*;
+public class Main {
+    public static void main(String args[]) {
+    Scanner sc=new Scanner(System.in);
+    int n=sc.nextInt();
+    int x=N_KnightQueens(n);
+    System.out.println();
+    System.out.println(count);
+    }
+   static List<List<String>> l;
+    public static int N_KnightQueens(int n) {
+        l=new ArrayList<>();
+        boolean[][] board=new boolean[n][n];
+        N_Queen(board,n,0,0,"");
+        return l.size();
+    }
+	 static int count=0;
+    static void N_Queen(boolean[][] board,int tq,int col,int row,String ans)
+    {
+        if(tq==0)
+        {   
+            System.out.print(ans+" ");
+      //System.out.print(" ");
+      count++;
+            return;
+        }
+    if (col == board.length) {
+      row++;
+      col = 0;
+    }
+    if (row == board.length) {
+      return;
+    }
+
+           if(safe(board,row,col))
+            {
+            board[row][col]=true;
+            N_Queen(board,tq-1,col+1,row,ans+"{"+row+"-"+col+"} ");
+            board[row][col]=false;    
+            }
+            
+       N_Queen(board,tq,col+1,row,ans);
+        
+    }
+    
+    static boolean safe(boolean[][] board,int row,int col)
+    {
+    int r[] = { -1, -1, -2, -2 };
+    int c[] = { 2, -2, 1, -1 };
+    for (int i = 0; i < c.length; i++) {
+      int x = row + r[i];
+      int y = col + c[i];
+      if (x >= 0 && y >= 0 && y < board.length && board[x][y] == true) {
+        return false;
+      }
+
+    }
+
+    return true;
+    }
+}
