@@ -1,0 +1,53 @@
+/*
+
+Replace all occurrences of pi with 3.14
+
+Input Format
+Integer N, no of lines with one string per line
+
+Constraints
+0 < N < 1000
+0 <= len(str) < 1000
+
+Output Format
+Output result one per line
+
+Sample Input
+3
+xpix
+xabpixx3.15x
+xpipippixx
+
+Sample Output
+x3.14x
+xab3.14xx3.15x
+x3.143.14p3.14xx
+
+Explanation
+All occurrences of pi have been replaced with "3.14".
+
+*/
+
+// Code...
+
+import java.util.*;
+public class Main {
+    public static void main(String args[]) {
+		Scanner sc = new Scanner(System.in);
+		int n=sc.nextInt();
+		while(n-->0){
+			String str=sc.next();
+			System.out.println(replace(str));
+		}
+    }
+	public static String replace(String str){
+		if(str.length()==0 || str.length()==1){
+			return str;
+		}
+		String sub = replace(str.substring(1));
+		if(str.charAt(0)=='p' && sub.charAt(0)=='i'){
+			return 3.14+sub.substring(1);
+		}
+		return str.charAt(0)+sub;
+	}
+}
