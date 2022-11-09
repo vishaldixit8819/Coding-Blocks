@@ -1,0 +1,47 @@
+/*
+
+Given an integer 'n'. Print all the possible pairs of 'n' balanced parentheses.
+The output strings should be printed in the sorted order considering '(' has higher value than ')'.
+
+Input Format
+Single line containing an integral value 'n'.
+
+Constraints
+1<=n<=11
+
+Output Format
+Print the balanced parentheses strings with every possible solution on new line.
+
+Sample Input
+2
+
+Sample Output
+()() 
+(()) 
+
+*/
+
+// Code..
+
+import java.util.*;
+public class Main {
+    public static void main(String args[]) {
+		Scanner sc = new Scanner(System.in);
+		int n=sc.nextInt();
+		GenerateParenthesis(n, 0, 0, "");
+    }
+	public static void GenerateParenthesis(int n, int open, int close, String str){
+		if(open==n && close==n){
+				System.out.println(str);
+			return;
+		}
+		if(close<open){
+			GenerateParenthesis(n, open, close+1, str+')');
+		}
+		if(open<n){
+			GenerateParenthesis(n, open+1, close, str+'(');
+		}
+	}
+}
+
+
