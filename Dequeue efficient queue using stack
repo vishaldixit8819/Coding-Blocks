@@ -1,0 +1,45 @@
+/*
+
+Implement a Queue using two stacks Make it Dequeue efficient.
+
+Input Format
+Enter the size of the queue N add 0 - N-1 numbers in the queue
+
+Constraints
+Output Format
+Display the numbers in the order they are dequeued and in a space separated manner
+
+Sample Input
+5
+Sample Output
+0 1 2 3 4
+
+*/
+
+// Code...
+
+import java.util.*;
+public class Main {
+	public static void main(String[] args){
+		Scanner sc = new Scanner(System.in);
+		int n=sc.nextInt();
+		Stack<Integer> st1=new Stack<>();
+		Stack<Integer> st2=new Stack<>();
+		for(int i=0;i<n;i++){
+			st1.push(i);
+		}
+		while(!st1.isEmpty()){
+			int temp=st1.pop();
+			st2.push(temp);
+
+		}
+		while(!st2.isEmpty()){
+			System.out.print(st2.pop()+" ");
+			
+		}
+		
+		
+
+	}
+
+}
