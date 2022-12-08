@@ -1,0 +1,62 @@
+/*
+
+You are given a string of brackets i.e. '{', '}' , '(' , ')', '[' , ']' . You have to check whether the sequence of parenthesis is balanced or not.
+For example, "(())", "(())()" are balanced and "())(", "(()))" are not.
+
+Input Format
+A string of '(' , ')' , '{' , '}' and '[' , ']' .
+
+Constraints
+1<=|S|<=10^5
+
+Output Format
+Print "Yes" if the brackets are balanced and "No" if not balanced.
+
+Sample Input
+(())
+Sample Output
+Yes
+Explanation
+(()) is a balanced string.
+
+*/
+
+// code...
+
+import java.util.*;
+class Main {
+	public static void main(String[] args){
+		// TODO Auto-generated method stub
+		Scanner sc = new Scanner(System.in);
+		String str = sc.next();
+		// function call
+		if(isValidParenthesis(str)){
+			System.out.println("Yes");
+		}
+		else{
+			System.out.println("No");
+		}
+		//return 0;
+	}
+	public static boolean isValidParenthesis(String s) {
+        Stack<Character> stack=new Stack<>();
+        for(char c: s.toCharArray()){
+            if(c=='(' || c=='[' || c=='{'){
+                stack.add(c);
+            }
+            else{
+                if(stack.isEmpty())return false;
+                if(c==')' && stack.peek()!='(')return false;
+                if(c==']' && stack.peek()!='[')return false;
+                if(c=='}' && stack.peek()!='{')return false;
+
+                stack.pop();
+            }
+        }
+        return stack.isEmpty();
+        
+    }
+
+}
+
+	
