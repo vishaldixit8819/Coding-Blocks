@@ -1,0 +1,63 @@
+/*
+
+Reverse a Stack using Recursion. Do not use any extra stack.
+
+Input Format
+First line contains an integer N (size of the stack).
+Next N lines follow each containing an integer to be stored in the stack where the last integer is at the top of the stack.
+
+Constraints
+1 <= N <= 10^4
+
+Output Format
+Output the values of the reversed stack with each value in one line each.
+
+Sample Input
+3
+3
+2
+1
+Sample Output
+3
+2
+1
+Explanation
+Original Stack = [ 3 , 2 , 1 ] <-TOP
+Reverse Stack = [ 1 , 2 , 3 ] <-TOP
+
+*/
+
+// Code...
+
+import java.util.*;
+public class Main{
+	public static void main(String[] args){
+		Scanner sc=new Scanner(System.in);
+		int num=sc.nextInt();
+		Stack<Integer> s=new Stack<>();
+		for(int i=0;i<num;i++){
+			s.push(sc.nextInt());
+		}
+		Reverse(s);
+		for(int i=0;i<num;i++){
+			System.out.println(s.pop());
+		}
+	}
+	public static void Reverse(Stack<Integer> s){
+		if(s.isEmpty()){
+			return;
+		}
+		int temp=s.pop();
+		Reverse(s);
+		InsertLast(s,temp);
+	}
+	public static void InsertLast(Stack<Integer> s,int val){
+		if(s.isEmpty()){
+			s.push(val);
+			return;
+		}
+		int temp=s.pop();
+		InsertLast(s,val);
+		s.push(temp);
+	}
+}
