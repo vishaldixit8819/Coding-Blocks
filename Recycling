@@ -1,0 +1,71 @@
+/*
+
+You are a marketing head of a big MNC. You made a bar graph for your latest presentation. Now for your next project you need a rectangular sheet. But you don't want to waste anymore paper.
+
+Since you don't need that bar graph anymore, you can use sheets from that. So you have to find the biggest possible rectangle you can cut out of that bar graph.
+
+Input Format
+First line takes integer N(no. of histogram bar).
+Second line contains N integers representing the height of each bar respectively.
+
+Constraints
+Constraints: 1<=N<=10^5
+0<=height[i]<=10^4
+
+Output Format
+Print the largest area of the rectangle that can be formed in histogram.
+
+Sample Input
+6
+2 1 5 6 2 3
+Sample Output
+10
+Explanation
+The above is a histogram where the width of each bar is 1. The largest rectangle is shown in the red area, which has an area = 10 units.
+
+*/
+
+// Code..
+
+import java.util.*;
+public class Main {
+    public static void main (String args[]) {
+        Scanner sc=new Scanner(System.in);
+        int num=sc.nextInt();
+        int ar[]=new int[num];
+        for(int i=0;i<num;i++){
+            ar[i]=sc.nextInt();
+        }
+        System.out.println(calculate_Area(ar));
+    }
+    public static long calculate_Area(int[] ar){
+        long maxarea=0;
+        Stack<Integer> Sta=new Stack<>();
+        for(int i=0;i<ar.length;i++){
+            while(!Sta.isEmpty() && ar[i]<ar[Sta.peek()]){
+                int q=i;
+                int g=ar[Sta.pop()];
+                if(Sta.isEmpty()){
+                    maxarea=Math.max(maxarea,(long)(g*q));
+                }
+                else{
+                    int m=Sta.peek();
+                    maxarea=Math.max(maxarea,(long)((q-m-1)*g));
+                }
+            }
+            Sta.push(i);
+        }
+        while(!Sta.isEmpty()){
+             int q=ar.length;
+                 int g=ar[Sta.pop()];
+                if(Sta.isEmpty()){
+                    maxarea=Math.max(maxarea,(long)(g*q));
+                }
+                else{
+                    int m=Sta.peek();
+                    maxarea=Math.max(maxarea,(long)((q-m-1)*g));
+                }
+        }
+        return maxarea;
+    }
+}
