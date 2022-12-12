@@ -1,0 +1,75 @@
+/*
+
+Take as input N, a number. N is the size of a snakes and ladders board. There are no snakes but we’ve ladders from 1st prime number to last prime number in range, 2nd prime number to 2nd from last prime number and so-on.
+
+a. Write a recursive function which returns the count of different distinct ways this board can be crossed with a normal dice. Print the value returned.
+
+b. Write a recursive function which prints all valid paths (void is the return type for function).
+
+Input Format
+Enter the size of the snake and ladders board N
+
+Constraints
+None
+
+Output Format
+Display the number of ways in which the board can be crossed and also display all the possible ways to cross the board in a comma separated manner
+
+Sample Input
+3
+Sample Output
+0 1 2 END , 0 1 END , 0 2 END , 0 END , 4
+
+*/
+
+// code...
+
+import java.util.*;
+public class Main {
+	static HashMap<Integer,Integer> maped;
+	static int c;
+    public static void main(String args[]) {
+        Scanner sc=new Scanner(System.in);
+		maped=new HashMap<>();
+		int num=sc.nextInt();
+		c=0;
+		prime(num);
+		display(num,0,"");
+		System.out.print("\n"+c);
+    }
+	public static void display(int num,int i,String strng){
+		if(i>num)
+			return;
+		if(i==num){
+			System.out.print(strng+"END , ");
+			c++;
+		}
+		if(maped.containsKey(i))
+			display(num,maped.get(i),strng+(char)('0'+i)+" ");
+		else
+		for(int j=1;j<7;j++){
+			display(num,i+j,strng+(char)('0'+i)+" ");
+		}
+	}
+	public static void prime(int n){
+		boolean ar1[]=new boolean[n+1];
+		ar1[0]=true;
+		ar1[1]=true;
+		for(int i=2;i<n+1;i++)
+			if(!ar1[i])
+			for(int j=i*i;j<n+1;j=j+i)
+				ar1[j]=true;
+		int i=0;
+		int j=ar1.length-1;
+		while(true){
+			while(ar1[i])
+				i++;
+			while(ar1[j])
+				j--;
+			if(i>=j)
+				break;
+			maped.put(i,j);
+			i++;j--;
+		}
+	}
+}
