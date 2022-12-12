@@ -1,0 +1,81 @@
+/*
+
+Monu Bhaiya has a board of size M x N consisting of characters and a list of strings words, print all words which are on the board in a sorted order .
+
+Each word must be constructed from letters of sequentially adjacent cells, where adjacent cells are horizontally or vertically neighboring. The same letter cell may not be used more than once in a word.
+
+Input Format
+First Line contains 3 space-separated Integers M ,N and K(length of words list) .
+Next M Lines contains strings of length N .
+Next Line contains a list of words .
+
+Constraints
+1 <= N,M <= 12
+1 <= word.length <= 104
+1 <= word[i].length <= 10
+
+Output Format
+print space-separated words which are on the board.
+
+Sample Input
+4 4 5
+oaan 
+etae 
+ihkr 
+iflv  
+oath pea eat rain fifa
+Sample Output
+eat oath
+Explanation
+There are only two words "oath" and "eat" from the list which are also in the character board .
+
+*/
+
+// code..
+
+import java.util.*;
+public class Main {
+    public static void main (String args[]) {
+        Scanner sc=new Scanner(System.in);
+        int n=sc.nextInt();
+        int num=sc.nextInt();
+        int l=sc.nextInt();
+        char ar[][]=new char[n][];
+        for(int a=0;a<ar.length;a++)
+            ar[a]=sc.next().toCharArray();
+        String answer[]=new String[l];
+        for(int a=0;a<answer.length;a++)
+            answer[a]=sc.next();
+        Arrays.sort(answer);
+        for(int a=0;a<answer.length;a++){
+            int flag=0;
+        for(int p=0;p<ar.length;p++){
+            for(int b=0;b<ar[p].length;b++){
+                if(ar[p][b]==answer[a].charAt(0))
+                    if(future(ar,answer[a],p,b,0)){
+                        System.out.print(answer[a]+" ");
+                        flag=1;
+                        break;
+                    }
+                }
+                if(flag==1)
+                    break;
+            }
+        }
+    }
+    public static boolean future(char ar[][],String str,int a,int b,int c)
+    {
+        if(c==str.length())
+            return true;
+        if(a<0||b<0||a>=ar.length||b>=ar[0].length||ar[a][b]!=str.charAt(c))
+            return false;
+        char chr=ar[a][b];
+        ar[a][b]='.';
+        boolean var = future(ar,str,a+1,b,c+1);
+        boolean var1 = future(ar,str,a,b-1,c+1);
+        boolean var2 = future(ar,str,a-1,b,c+1);
+        boolean var3 = future(ar,str,a,b+1,c+1);
+        ar[a][b] = chr;
+        return var || var2 || var3 || var1; 
+    }
+}
