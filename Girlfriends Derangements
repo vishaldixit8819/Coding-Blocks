@@ -1,0 +1,44 @@
+/*
+
+Monu bhaiya wants to count all his girlfriend's Derangement. A Derangement is a permutation of n elements, so no element appears in its original position. For example, a derangement of {0, 1, 2, 3} is {2, 3, 1, 0}. Given a number n, find the total number of Derangements of a set of n elements.
+
+Input Format
+An integer N
+
+Constraints
+N=[1,10^6]
+
+Output Format
+Number of possible derangements
+
+Sample Input
+2
+Sample Output
+1
+Explanation
+For two elements say {0, 1}, there is only one possible derangement {1, 0}
+
+*/
+
+// code...
+
+import java.util.*;
+class Main{
+    public static int derrange(int num)
+    {
+        int arr1[]=new int[num+1];
+        if(num==0)return 0;
+        if(num==1)return 0;
+        arr1[2]=1;
+        for(int i=3;i<arr1.length;i++)
+        {
+            arr1[i]=(i-1)*(arr1[i-1]+arr1[i-2]);
+        }
+        return arr1[num];
+    }
+    public static void main(String args[])
+    {
+        Scanner sc=new Scanner(System.in);
+        System.out.println(derrange(sc.nextInt()));
+    }
+}
