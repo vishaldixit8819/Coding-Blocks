@@ -1,0 +1,77 @@
+/*
+
+Given a m x n grid filled with non-negative numbers, find a path from top left to bottom right, which minimizes the sum of all numbers along its path.
+
+Note: You can only move either down or right at any point in time. Example 1: Input: grid = [[1,3,1],[1,5,1],[4,2,1]] Output: 7
+
+Explanation: Because the path 1 → 3 → 1 → 1 → 1 minimizes the sum.
+
+Example 2: Input: grid = [[1,2,3],[4,5,6]] Output: 12
+
+image
+
+Input Format
+
+First line contains number of Row(m) and Column(n) Next m lines having n items each
+
+Constraints
+
+m == grid.length
+
+n == grid[i].length
+
+1 <= m, n <= 200
+
+0 <= grid[i][j] <= 100
+
+Output Format
+
+integer value (path)
+
+Sample Input 0
+
+3 3
+1 3 1
+1 5 1
+4 2 1
+
+Sample Output 0
+
+7
+
+*/
+
+// code..
+
+import java.io.*;
+import java.util.*;
+public class Solution {
+    public static void main(String[] args) {
+        Scanner scn = new Scanner(System.in);
+        int m=scn.nextInt();
+        int n= scn.nextInt();
+        int grid[][] = new int[m][n];
+        for(int i=0;i<m;i++){
+            for(int j=0;j<n;j++){
+                grid[i][j]=scn.nextInt();
+            }
+        }
+        int ans=minPathSum(grid);
+        System.out.println(ans);
+    }
+     public static int minPathSum(int[][] grid) {
+       int m= grid.length;
+        int n=grid[0].length;
+        int memo[][]=new int[m][n];
+        return find(grid,m-1,n-1,memo);  
+    }
+     public static int find(int [][]grid,int m,int n,int memo[][]){
+        if (m==0&&n==0) return grid[m][n];
+        else if (m<0||n<0) {
+            return Integer.MAX_VALUE;
+        } else if (memo[m][n]!=0) {
+            return memo[m][n];
+        }
+        return memo[m][n]=grid[m][n]+Math.min(find(grid,m-1,n,memo),find(grid,m,n-1,memo));
+    }
+}
