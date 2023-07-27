@@ -1,0 +1,75 @@
+Given a binary tree, find the maximum path sum in it.
+The path is defined as a sequence of nodes that follows parent-child connection.Path may start from any node and end at any node.
+
+Input Format
+The first line of input contains level order traversal of the tree.In the input , a -1 value represent a null child while any other value represent a node in the tree.
+
+Constraints
+1<=number of nodes in the tree <=10^5
+
+Output Format
+Print a single integer equal to maximum path sum in the given tree.
+
+Sample Input
+1 4 6 -1 -1 -1 -1
+
+Sample Output
+11
+
+Explanation
+The path with maximum sum is from the root's left child(4) to root's right child(6) with sum as 11(4+1+6)
+
+// code..
+
+import java.util.*;  
+class TreeNode {     
+    int data;     
+    TreeNode left, right;      
+    TreeNode(int data) {         
+        this.data = data;         
+        this.left = null;         
+        this.right = null;     
+    } 
+}  
+public class Main {     
+    static int mx_path_sum = Integer.MIN_VALUE;      
+    public static int fnd_max_path_sum(TreeNode node1) {         
+        if (node1 == null)             
+        return 0;          
+        int lft_mx = Math.max(0, fnd_max_path_sum(node1.left));         
+        int rght_mx = Math.max(0, fnd_max_path_sum(node1.right));          
+        int curr_sum = node1.data + lft_mx + rght_mx;          
+        mx_path_sum = Math.max(mx_path_sum, curr_sum);          
+        return node1.data + Math.max(lft_mx, rght_mx);    
+        }      
+        public static void main(String[] args) {         
+            Scanner scn = new Scanner(System.in);          
+            String[] str1 = scn.nextLine().split(" ");         
+            TreeNode node1 = create_tree(str1);          
+            fnd_max_path_sum(node1);          
+            System.out.println(mx_path_sum);          
+                
+        }      
+        public static TreeNode create_tree(String[] str1) {         
+            if (str1 == null || str1.length == 0)             
+            return null;          
+            Queue<TreeNode> que = new LinkedList<>();         
+            TreeNode node1 = new TreeNode(Integer.parseInt(str1[0]));         
+            que.add(node1);          
+            int ith = 1;         
+            while (!que.isEmpty()) {             
+                TreeNode node = que.poll();              
+                if (ith < str1.length && !str1[ith].equals("-1")) {                 
+                    node.left = new TreeNode(Integer.parseInt(str1[ith]));                 
+                    que.add(node.left);             
+                }             
+                ith++;              
+                if (ith < str1.length && !str1[ith].equals("-1")) {                 
+                    node.right = new TreeNode(Integer.parseInt(str1[ith]));                 
+                    que.add(node.right);             
+                }             
+                ith++;         
+            }          
+            return node1;     
+        } 
+    }
