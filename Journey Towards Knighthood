@@ -1,0 +1,64 @@
+You have been selected by a royal knight as his squire. He is a master swordsman and will train you to become one as well, if you assist him well enough. Being a champion, he likes to duel with one sword in each of his hands.
+
+As your first task he has asked you to select two swords for him. You have to select the pair of swords based on the absolute difference of their lengths.
+
+You will be given the length of each swords and you have to finds the Kth smallest difference pair of swords.
+
+Complete this task as soon as possible to start your journey towards becoming a knight.
+
+Input Format
+The first line contains two integers K and N (the size of the array). The second line contains N space-separated integers.
+
+Constraints
+n == nums.length
+2 <= n <= 1e4
+0 <= nums[i] <= 1e6
+1 <= k <= n * (n - 1) / 2
+Output Format
+print the kth smallest distance
+
+Sample Input
+3 1
+1 3 1
+
+Sample Output
+0
+Explanation
+Here are all the pairs:
+
+(1,3) -> 2
+(1,1) -> 0
+(3,1) -> 2
+The 1st smallest distance pair is (1,1), and its distance is 0.
+
+// code..
+
+import java.util.*;   
+public class Main  {          
+    public static int smallest_distance(int nth, int[] ar1){                  
+        int kth = ar1.length;           
+        int arr1[][] = new int[kth * (kth - 1) / 2][3];                                   
+        int pnt = 0;                  
+        for (int ith = 0; ith < kth; ith++){                          
+            for (int jth = ith + 1; jth < kth; jth++){                                  
+                arr1[pnt][0] = ar1[ith];                                  
+                arr1[pnt][1] = ar1[jth];                                  
+                arr1[pnt][2] = Math.abs(ar1[ith] - ar1[jth]);                                  
+                pnt++;             
+            }         
+        }                                                     
+        Arrays.sort(arr1, (a, b) -> Integer.compare(a[2], b[2]));                                                   
+        return arr1[nth - 1][2];                      
+    }                       
+    public static void main(String[] args) {                      
+        Scanner scn=new Scanner(System.in);                     
+        int kth = scn.nextInt();                     
+        int nth =scn.nextInt();                                           
+        int ar1 [] = new int[kth];                     
+        for(int ith=0;ith<ar1.length;ith++){                         
+            ar1[ith]=scn.nextInt();                     
+        }                     
+        int answr = smallest_distance(nth, ar1);                              
+        System.out.println(answr);                                               
+    }                  
+}
