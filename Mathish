@@ -1,0 +1,63 @@
+Ram is weak at understanding mathematical number. But can understand English well .
+So help Ram in converting mathematical number to english.
+
+Input Format
+The number N will be taken as input
+
+Constraints
+0 <= n <= 2^31 - 1
+
+Output Format
+Output number in words
+
+Sample Input
+1234567
+
+Sample Output
+One Million Two Hundred Thirty Four Thousand Five Hundred Sixty Seven
+Explanation
+None
+
+// code..
+
+import java.util.*; 
+public class Main {          
+    public static final String[] thsand = {"", "Thousand", "Million", "Billion"};           
+    public static final String[] tns = {"", "", "Twenty", "Thirty", "Forty", "Fifty", "Sixty", "Seventy", "Eighty", "Ninety"};           
+    public static final String[] ons = {"", "One", "Two", "Three", "Four", "Five", "Six", "Seven", "Eight", "Nine", "Ten","Eleven", "Twelve", "Thirteen", "Fourteen", "Fifteen", "Sixteen", "Seventeen", "Eighteen", "Nineteen"};           
+    public static void main(String[] args) {           
+        Scanner scn = new Scanner(System.in);                
+        int n1 = scn.nextInt();                  
+        String answr = find_mathmatcl(n1);                  
+        System.out.println(answr);     
+    }      
+    public static String find_mathmatcl(int n1) {                  
+        if (n1 == 0) {                          
+            return "Zero";                  
+        }                   
+        int indx = 0;                  
+        String answr = "";                   
+        while (n1 > 0) {                          
+            if (n1 % 1000 != 0) {                         
+                answr = find_temp(n1 % 1000) + thsand[indx] + " " + answr;             
+            }                          
+            n1 /= 1000;                          
+            indx++;         
+        }                  
+        return answr.trim();          
+    }                
+    public static String find_temp(int n1) {                  
+        if (n1 == 0) {                          
+            return "";                  
+        }          
+        else if (n1 < 20) {                         
+            return ons[n1] + " ";                  
+        }          
+        else if (n1 < 100) {                          
+            return tns[n1 / 10] + " " + find_temp(n1 % 10);                  
+        }          
+        else {                          
+            return ons[n1 / 100] + " Hundred " + find_temp(n1 % 100);                  
+        }          
+    }       
+}
